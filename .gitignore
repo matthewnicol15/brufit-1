@@ -20,6 +20,7 @@ html/
 *.so
 *.d
 *.pcm
+*.pdf
 
 # Packages #
 ############
