@@ -55,7 +55,7 @@ namespace HS{
       const RooAbsArg *tmp=nullptr;
       while ((tmp = dynamic_cast<RooAbsArg*>(iter.Next()))){
 	auto arg=fitvars.find(tmp->GetName());
-	cout<<"ToyManager::Generate() "<<tmp->GetName()<<" "<<model->isDirectGenSafe(*arg)<<endl;
+	//cout<<"ToyManager::Generate() "<<tmp->GetName()<<" "<<model->isDirectGenSafe(*arg)<<endl;
       }
 
       while(fToyi<fNToys){//Note we do not parallelise toy generation, just run sequentially here
@@ -112,6 +112,7 @@ namespace HS{
       for(auto* pdf:PDFs){
 	if(auto evPdf=dynamic_cast<RooHSEventsPDF*> (pdf) ) {
 	  TFile entryFile(TString("entryFile_")+evPdf->GetName()+".root");
+	  if(entryFile.IsOpen()==kFALSE) continue; //no events tree or entry list, will just have used Accept or Reject
 	  auto entryList=dynamic_cast<TEntryList*>(entryFile.Get("GenEvents"));
 
 	  auto idata=GetDataBin(GetFiti()); //bin for this generation

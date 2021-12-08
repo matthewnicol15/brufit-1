@@ -43,11 +43,12 @@ namespace HS{
       FitManager(FitManager&&)=default;
       ~FitManager() override =default;
       FitManager& operator=(const FitManager& other);
-      FitManager& operator=(FitManager&& other) = default;
+      FitManager& operator=(FitManager&& other) = delete;
 
       Setup *PointerSetUp() {return &fSetup;};
       Setup &SetUp() {return fSetup;};
       const Setup &ConstSetUp() {return fSetup;};
+      Setup *CurrSetUp()  {return fCurrSetup.get();};
 
       //Note the default name and title are given by the bin and bootstrap
       //combination, Data GetGroup and GetItemName are BootStrap related
